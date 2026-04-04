@@ -6,8 +6,8 @@
 
 ```bash
 # 作为 git submodule
-git submodule add https://github.com/<your-username>/paddleocr-wrapper.git libs/paddleocr-wrapper
-pip install -e libs/paddleocr-wrapper
+git submodule add https://github.com/dreasky/paddleocr_wrapper.git libs/paddleocr-wrapper
+pip install -e libs/paddleocr_wrapper
 ```
 
 ## 配置
