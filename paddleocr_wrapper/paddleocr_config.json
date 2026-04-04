@@ -1,0 +1,146 @@
+{
+  "useDocOrientationClassify": {
+    "name": "图片方向矫正",
+    "type": ["boolean", "null"],
+    "value": false,
+    "description": "是否在推理时使用文本图像方向矫正模块，开启后，可以自动识别并矫正 0°、90°、180°、270°的图片"
+  },
+  "useDocUnwarping": {
+    "name": "图片扭曲矫正",
+    "type": ["boolean", "null"],
+    "value": false,
+    "description": "是否在推理时使用文本图像矫正模块，开启后，可以自动矫正扭曲图片，例如褶皱、倾斜等情况"
+  },
+  "useLayoutDetection": {
+    "name": "版面分析",
+    "type": ["boolean", "null"],
+    "value": true,
+    "description": "是否在推理时使用版面区域检测排序模块，开启后，可以自动检测文档中不同区域并排序"
+  },
+  "useChartRecognition": {
+    "name": "图表识别",
+    "type": ["boolean", "null"],
+    "value": false,
+    "description": "是否在推理时使用图表解析模块，开启后，可以自动解析文档中的图表（如柱状图、饼图等）并转换为表格形式"
+  },
+  "useSealRecognition": {
+    "name": "印章识别",
+    "type": ["boolean", "null"],
+    "value": false,
+    "description": "是否在推理时使用印章识别模块"
+  },
+  "useOcrForImageBlock": {
+    "name": "图片OCR",
+    "type": ["boolean", "null"],
+    "value": false,
+    "description": "是否对图片块进行OCR识别"
+  },
+  "layoutThreshold": {
+    "name": "版面区域过滤强度",
+    "type": ["number", "object", "null"],
+    "value": null,
+    "description": "版面模型得分阈值，0-1之间的浮点数，默认0.5"
+  },
+  "layoutNms": {
+    "name": "NMS后处理",
+    "type": ["boolean", "null"],
+    "value": true,
+    "description": "版面检测是否使用后处理NMS，开启后，会自动移除重复或高度重叠的区域框"
+  },
+  "layoutUnclipRatio": {
+    "name": "扩张系数",
+    "type": ["number", "array", "object", "null"],
+    "value": null,
+    "description": "版面区域检测模型检测框的扩张系数，大于0的浮点数，默认1.0"
+  },
+  "layoutMergeBboxesMode": {
+    "name": "版面区域检测的重叠框过滤方式",
+    "type": ["string", "object", "null"],
+    "value": null,
+    "description": "重叠框过滤方式：large(保留最大框)、small(保留最小框)、union(都保留)，默认large"
+  },
+  "layoutShapeMode": {
+    "name": "版面检测结果的几何形状",
+    "type": ["string", "null"],
+    "value": "auto",
+    "description": "检测区域边界的计算方式：rect(矩形)、quad(四边形)、poly(多边形)、auto(自动)"
+  },
+  "promptLabel": {
+    "name": "prompt类型设置",
+    "type": ["string", "null"],
+    "value": "ocr",
+    "description": "VL模型的prompt类型：ocr、formula、table、chart，当useLayoutDetection=False时生效"
+  },
+  "repetitionPenalty": {
+    "name": "重复抑制强度",
+    "type": ["number", "null"],
+    "value": 1,
+    "description": "结果中出现重复文字、重复表格内容时，可适当调高"
+  },
+  "temperature": {
+    "name": "识别稳定性",
+    "type": ["number", "null"],
+    "value": 0,
+    "description": "结果不稳定或出现明显幻觉时调低，漏识别或者重复较多时可略微调高"
+  },
+  "topP": {
+    "name": "结果可信范围",
+    "type": ["number", "null"],
+    "value": 1,
+    "description": "结果发散、不够可信时可适当调低，让模型更保守"
+  },
+  "minPixels": {
+    "name": "最小图像尺寸",
+    "type": ["number", "null"],
+    "value": 147384,
+    "description": "输入图片太小、文字看不清时可适当调高，一般无需调整"
+  },
+  "maxPixels": {
+    "name": "最大图像尺寸",
+    "type": ["number", "null"],
+    "value": 2822400,
+    "description": "输入图片特别大、处理变慢或显存压力较大时可适当调低"
+  },
+  "showFormulaNumber": {
+    "name": "公式编号展示",
+    "type": ["boolean"],
+    "value": null,
+    "description": "输出的Markdown文本中是否包含公式编号"
+  },
+  "restructurePages": {
+    "name": "重构多页结果",
+    "type": ["boolean"],
+    "value": true,
+    "description": "对多页pdf解析结果进行重构，用于适配跨页表格合并和段落标题级别识别"
+  },
+  "mergeTables": {
+    "name": "跨页表格合并",
+    "type": ["boolean"],
+    "value": true,
+    "description": "开启后，会识别跨页表格将其合并为一个，当useLayoutDetection=False时生效"
+  },
+  "relevelTitles": {
+    "name": "段落标题级别识别",
+    "type": ["boolean"],
+    "value": true,
+    "description": "开启后，会识别段落标题级别，当useLayoutDetection=False时生效"
+  },
+  "prettifyMarkdown": {
+    "name": "Markdown美化",
+    "type": ["boolean"],
+    "value": true,
+    "description": "是否输出美化后的Markdown文本"
+  },
+  "visualize": {
+    "name": "可视化",
+    "type": ["boolean", "null"],
+    "value": null,
+    "description": "是否返回可视化结果图及处理过程中的中间图像"
+  },
+  "markdownIgnoreLabels": {
+    "name": "Markdown忽略标签",
+    "type": ["array"],
+    "value": ["header", "header_image", "footer", "footer_image", "number", "aside_text"],
+    "description": "在生成Markdown时忽略的版面区域标签列表"
+  }
+}
