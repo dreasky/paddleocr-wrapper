@@ -8,6 +8,9 @@
 # 作为 git submodule
 git submodule add https://github.com/dreasky/paddleocr_wrapper.git libs/paddleocr_wrapper
 pip install -e libs/paddleocr_wrapper
+
+# 直接从 GitHub 安装
+pip install git+https://github.com/dreasky/paddleocr_wrapper.git
 ```
 
 ## 配置
