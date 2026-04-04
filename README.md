@@ -1,4 +1,4 @@
-# paddleocr_wrapper
+# paddleocr-wrapper
 
 基于 PaddleOCR API 的封装库，支持 PDF 和图片转 Markdown，含版面分析、跨页表格合并等能力。
 
@@ -6,11 +6,11 @@
 
 ```bash
 # 作为 git submodule
-git submodule add https://github.com/dreasky/paddleocr_wrapper.git libs/paddleocr_wrapper
-pip install -e libs/paddleocr_wrapper
+git submodule add https://github.com/dreasky/paddleocr-wrapper.git libs/paddleocr-wrapper
+pip install -e libs/paddleocr-wrapper
 
 # 直接从 GitHub 安装
-pip install git+https://github.com/dreasky/paddleocr_wrapper.git
+pip install git+https://github.com/dreasky/paddleocr-wrapper.git
 ```
 
 ## 配置
