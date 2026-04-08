@@ -10,7 +10,7 @@ git submodule add https://github.com/dreasky/paddleocr-wrapper.git libs/paddleoc
 pip install -e libs/paddleocr-wrapper
 
 # 直接从 GitHub 安装
-pip install git+https://github.com/dreasky/paddleocr-wrapper.git
+pip install --upgrade git+https://github.com/dreasky/paddleocr-wrapper.git
 ```
 
 ## 配置
