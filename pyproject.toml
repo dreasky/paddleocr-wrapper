@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "paddleocr-wrapper"
-version = "0.1.0"
+version = "0.1.1"
 description = "PaddleOCR API 封装库，支持 PDF/图片转 Markdown"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,6 +12,7 @@ license = { text = "MIT" }
 dependencies = [
     "requests>=2.31.0",
     "python-dotenv>=1.0.0",
+    "markdownify"
 ]
 
 [tool.setuptools.packages.find]

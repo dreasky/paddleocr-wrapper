@@ -4,6 +4,7 @@ import base64
 import sys
 from pathlib import Path
 from typing import Any
+from markdownify import markdownify
 
 import requests
 
@@ -77,7 +78,7 @@ class PaddleocrWrapper:
             except Exception as e:
                 print(f"图片下载失败: {Path(img_path).name} - {e}", file=sys.stderr)
 
-    def convert(self, input_file: Path, output_dir: Path) -> Path:
+    def convert(self, input_file: Path, output_file: Path) -> None:
         """Convert a PDF or image file to Markdown and save to output_dir/<stem>.md."""
         if not input_file.exists():
             raise FileNotFoundError(f"Input file not found: {input_file}")
@@ -97,11 +98,10 @@ class PaddleocrWrapper:
             for img_path, img_url in md.get("images", {}).items():
                 image_downloads.append((img_path, img_url))
 
-        output_dir.mkdir(parents=True, exist_ok=True)
-        output_file = output_dir / (input_file.stem + ".md")
-        output_file.write_text("\n\n---\n\n".join(markdown_parts), encoding="utf-8")
+        result_temp = "\n\n---\n\n".join(markdown_parts)
+        result = markdownify(result_temp)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        output_file.write_text(result, encoding="utf-8")
 
         if image_downloads:
-            self._download_images(image_downloads, output_dir)
-
-        return output_file
+            self._download_images(image_downloads, output_file)
