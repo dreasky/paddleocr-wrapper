@@ -104,4 +104,4 @@ class PaddleocrWrapper:
         output_file.write_text(result, encoding="utf-8")
 
         if image_downloads:
-            self._download_images(image_downloads, output_file)
+            self._download_images(image_downloads, output_file.parent)
