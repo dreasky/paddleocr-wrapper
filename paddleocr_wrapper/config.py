@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 
 class ConfigLoader:
+    """配置参数详情参考：https://ai.baidu.com/ai-doc/AISTUDIO/Cmkz2m0ma"""
 
     def __init__(self, config_file: Path | None = None):
         load_dotenv()
@@ -16,8 +17,11 @@ class ConfigLoader:
         self.api_url = os.environ.get("PADDLEOCR_OCR_API_URL", "")
         self.access_token = os.environ.get("PADDLEOCR_ACCESS_TOKEN", "")
         if not self.api_url or not self.access_token:
-            missing = [v for v in ("PADDLEOCR_OCR_API_URL", "PADDLEOCR_ACCESS_TOKEN")
-                       if not os.environ.get(v)]
+            missing = [
+                v
+                for v in ("PADDLEOCR_OCR_API_URL", "PADDLEOCR_ACCESS_TOKEN")
+                if not os.environ.get(v)
+            ]
             for v in missing:
                 print(f"Error: {v} not configured in environment", file=sys.stderr)
             sys.exit(1)

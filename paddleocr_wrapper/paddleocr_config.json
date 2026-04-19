@@ -122,7 +122,7 @@
   "relevelTitles": {
     "name": "段落标题级别识别",
     "type": ["boolean"],
-    "value": true,
+    "value": false,
     "description": "开启后，会识别段落标题级别，当useLayoutDetection=False时生效"
   },
   "prettifyMarkdown": {
