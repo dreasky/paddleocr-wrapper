@@ -44,7 +44,7 @@
   "layoutNms": {
     "name": "NMS后处理",
     "type": ["boolean", "null"],
-    "value": true,
+    "value": false,
     "description": "版面检测是否使用后处理NMS，开启后，会自动移除重复或高度重叠的区域框"
   },
   "layoutUnclipRatio": {
