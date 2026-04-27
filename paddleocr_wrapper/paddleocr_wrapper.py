@@ -1,6 +1,7 @@
 """PaddleOCR Wrapper — convert PDF/image to Markdown via PaddleOCR API."""
 
 import base64
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -63,20 +64,20 @@ class PaddleocrWrapper:
     def _download_images(
         self, image_downloads: list[tuple[str, str]], output_dir: Path
     ) -> None:
-        imgs_dir = output_dir / "imgs"
-        imgs_dir.mkdir(parents=True, exist_ok=True)
         for img_path, img_url in image_downloads:
+            dest = output_dir / img_path
             try:
                 r = self._session.get(img_url, timeout=self.IMAGE_DOWNLOAD_TIMEOUT)
                 if r.status_code == 200:
-                    (imgs_dir / Path(img_path).name).write_bytes(r.content)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(r.content)
                 else:
                     print(
-                        f"图片下载失败: {Path(img_path).name} (status {r.status_code})",
+                        f"图片下载失败: {img_path} (status {r.status_code})",
                         file=sys.stderr,
                     )
             except Exception as e:
-                print(f"图片下载失败: {Path(img_path).name} - {e}", file=sys.stderr)
+                print(f"图片下载失败: {img_path} - {e}", file=sys.stderr)
 
     def convert(self, input_file: Path, output_file: Path) -> None:
         """Convert a PDF or image file to Markdown and save to output_dir/<stem>.md."""
@@ -89,19 +90,31 @@ class PaddleocrWrapper:
         result = self._send_request(file_data, file_type)
 
         markdown_parts = []
-        image_downloads = []
+        all_image_map: dict[str, str] = {}
         for res in result.get("layoutParsingResults", []):
             md = res.get("markdown", {})
             text = md.get("text", "")
             if text:
                 markdown_parts.append(text)
-            for img_path, img_url in md.get("images", {}).items():
-                image_downloads.append((img_path, img_url))
+            all_image_map.update(md.get("images", {}))
 
-        result_temp = "\n\n---\n\n".join(markdown_parts)
-        result = markdownify(result_temp)
+        result_text = "\n\n---\n\n".join(markdown_parts)
+        result_md = markdownify(result_text)
+
+        # Only download images actually referenced in the markdown text.
+        # The API returns all images (including filtered regions like headers/footers),
+        # but the markdown only links to a subset of them.
+        _IMG_RE = re.compile(r"!\[.*?\]\(([^)]+)\)")
+        referenced = _IMG_RE.findall(result_text) + _IMG_RE.findall(result_md)
+        referenced_set = set(referenced)
+        image_downloads = [
+            (img_path, img_url)
+            for img_path, img_url in all_image_map.items()
+            if img_path in referenced_set
+        ]
+
         output_file.parent.mkdir(parents=True, exist_ok=True)
-        output_file.write_text(result, encoding="utf-8")
+        output_file.write_text(result_md, encoding="utf-8")
 
         if image_downloads:
             self._download_images(image_downloads, output_file.parent)
