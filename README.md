@@ -6,8 +6,8 @@
 
 ```bash
 # 作为 git submodule
-git submodule add https://github.com/dreasky/paddleocr-wrapper.git libs/paddleocr-wrapper
-pip install -e libs/paddleocr-wrapper
+git clone https://github.com/dreasky/paddleocr-wrapper.git
+pip install -e paddleocr-wrapper
 
 # 直接从 GitHub 安装
 pip install --upgrade git+https://github.com/dreasky/paddleocr-wrapper.git
@@ -39,13 +39,13 @@ wrapper = PaddleocrWrapper(config_file=Path("my_paddleocr_config.json"))
 
 常用配置项：
 
-| 字段 | 默认值 | 说明 |
-|---|---|---|
-| `useLayoutDetection` | `true` | 版面区域检测与排序 |
-| `restructurePages` | `true` | 多页结果重构（跨页表格合并等） |
-| `mergeTables` | `true` | 跨页表格合并 |
-| `prettifyMarkdown` | `true` | Markdown 美化输出 |
-| `temperature` | `0` | 识别稳定性，越低越保守 |
+| 字段                   | 默认值                      | 说明                           |
+| ---------------------- | --------------------------- | ------------------------------ |
+| `useLayoutDetection`   | `true`                      | 版面区域检测与排序             |
+| `restructurePages`     | `true`                      | 多页结果重构（跨页表格合并等） |
+| `mergeTables`          | `true`                      | 跨页表格合并                   |
+| `prettifyMarkdown`     | `true`                      | Markdown 美化输出              |
+| `temperature`          | `0`                         | 识别稳定性，越低越保守         |
 | `markdownIgnoreLabels` | `["header", "footer", ...]` | 生成 Markdown 时忽略的区域标签 |
 
 完整配置项见包内 `paddleocr_wrapper/paddleocr_config.json`。

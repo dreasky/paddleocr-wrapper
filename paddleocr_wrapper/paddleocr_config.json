@@ -20,7 +20,7 @@
   "useChartRecognition": {
     "name": "图表识别",
     "type": ["boolean", "null"],
-    "value": false,
+    "value": true,
     "description": "是否在推理时使用图表解析模块，开启后，可以自动解析文档中的图表（如柱状图、饼图等）并转换为表格形式"
   },
   "useSealRecognition": {
@@ -74,19 +74,19 @@
   "repetitionPenalty": {
     "name": "重复抑制强度",
     "type": ["number", "null"],
-    "value": 1,
+    "value": 1.05,
     "description": "结果中出现重复文字、重复表格内容时，可适当调高"
   },
   "temperature": {
     "name": "识别稳定性",
     "type": ["number", "null"],
-    "value": 0,
+    "value": 0.3,
     "description": "结果不稳定或出现明显幻觉时调低，漏识别或者重复较多时可略微调高"
   },
   "topP": {
     "name": "结果可信范围",
     "type": ["number", "null"],
-    "value": 1,
+    "value": 0.9,
     "description": "结果发散、不够可信时可适当调低，让模型更保守"
   },
   "minPixels": {
@@ -140,7 +140,14 @@
   "markdownIgnoreLabels": {
     "name": "Markdown忽略标签",
     "type": ["array"],
-    "value": ["header", "header_image", "footer", "footer_image", "number", "aside_text"],
+    "value": [
+      "header",
+      "header_image",
+      "footer",
+      "footer_image",
+      "number",
+      "aside_text"
+    ],
     "description": "在生成Markdown时忽略的版面区域标签列表"
   }
 }
